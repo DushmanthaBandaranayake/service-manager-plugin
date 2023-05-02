@@ -58,7 +58,7 @@ public class JavaProcessHandler {
             Process proc = processBuilder.start();
 
             serviceInfoPanel.getLogJTextArea().append("############" + service + " [ process started Process Id - " + proc.pid() + "] ###############\n");
-            proc.waitFor(10, TimeUnit.SECONDS);
+            proc.waitFor(5, TimeUnit.SECONDS);
 
             if (proc.isAlive()) {
                 PROCESS_CACHE.put(service, proc);
@@ -151,7 +151,7 @@ public class JavaProcessHandler {
             Process proc = processBuilder.start();
 
             serviceInfoPanel.getLogJTextArea().append("############" + service + " [ process started Process Id - " + proc.pid() + "] ###############\n");
-            proc.waitFor(10, TimeUnit.SECONDS);
+            proc.waitFor(5, TimeUnit.SECONDS);
 
             if (proc.isAlive()) {
                 PROCESS_CACHE.put(service, proc);

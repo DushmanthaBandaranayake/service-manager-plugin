@@ -29,15 +29,6 @@ public class RestServiceInfoPanel extends InfoPanel {
         initUi();
     }
 
-    RestServiceInfoPanel(String serviceName,
-                         ActionListener startButtonActionListener,
-                         ActionListener stopButtonActionListener) {
-        super(serviceName);
-        startButton.addActionListener(startButtonActionListener);
-        stopButton.addActionListener(stopButtonActionListener);
-        tailLogFile();
-    }
-
     private void initUi() {
 
         startButton.addActionListener(new StartButtonActionListener(this));
