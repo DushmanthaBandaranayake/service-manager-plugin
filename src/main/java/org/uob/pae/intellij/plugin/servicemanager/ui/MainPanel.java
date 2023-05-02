@@ -35,7 +35,7 @@ public class MainPanel {
                 defaultListModel.addElement(infoPanel);
             }
         } catch (Exception e) {
-            //Utils.fireNotification("Invalid Service Configuration. Please make check your service name and ports ", NotificationType.ERROR);
+            Utils.fireNotification("Invalid Service Configuration. Please make check your service name and ports ", NotificationType.ERROR);
         }
 
         instance.jListServices.setModel(defaultListModel);

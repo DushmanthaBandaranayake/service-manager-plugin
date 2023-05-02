@@ -67,7 +67,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="-demo,no-auth,cq-source,sim-off"/>
+          <text value="demo,no-auth,cq-source,sim-off"/>
         </properties>
       </component>
       <component id="83c34" class="javax.swing.JLabel">

@@ -2,6 +2,8 @@ package org.uob.pae.intellij.plugin.servicemanager.ui;
 
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
+import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.JarFileStartButtonListener;
+import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.JarFileStopButtonListener;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -55,13 +57,20 @@ public class Utils {
         List<InfoPanel> list = new ArrayList<>();
         list.add(MasterConfigInfoPanel.getInstance());
 
+        var hazelcastServicePanel = new RestServiceInfoPanel("pae-hazelcast");
+        hazelcastServicePanel.addStartActionButtonListener(new JarFileStartButtonListener(hazelcastServicePanel));
+        hazelcastServicePanel.addStopActionButtonListener(new JarFileStopButtonListener(hazelcastServicePanel));
+
+        list.add(hazelcastServicePanel);
+
         for (String serviceInfo : decodeServiceList()) {
 
             String[] service = serviceInfo.split("=");
             String serviceName = service[0];
-            String port = service[1].split(":")[1];
-
-            list.add(new RestServiceInfoPanel(serviceName, port, "C://logs", "java -jar"));
+            if (!serviceName.startsWith("#")) {
+                String port = service[1].split(":")[1];
+                list.add(new RestServiceInfoPanel(serviceName));
+            }
         }
         return list;
     }
