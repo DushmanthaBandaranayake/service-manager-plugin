@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.uob.pae.intellij.plugin.servicemanager.ui.MasterConfigInfoPanel">
+  <grid id="27dc6" binding="mainConfigPanel" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1434" height="442"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="18625" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Java home"/>
+        </properties>
+      </component>
+      <component id="94f7a" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Log folder"/>
+        </properties>
+      </component>
+      <component id="48348" class="javax.swing.JTextField" binding="javaHomeTextField">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="e12ae" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="PAE deploy folder"/>
+        </properties>
+      </component>
+      <component id="ac437" class="javax.swing.JTextField" binding="logFolderTextField">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="C:\logs"/>
+        </properties>
+      </component>
+      <component id="93214" class="javax.swing.JTextField" binding="deployFolderJTextField">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="C:\repo\pae\uob-pae\deploy"/>
+        </properties>
+      </component>
+      <component id="ecdb5" class="javax.swing.JTextField" binding="profileTextField">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="-demo,no-auth,cq-source,sim-off"/>
+        </properties>
+      </component>
+      <component id="83c34" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Profile"/>
+        </properties>
+      </component>
+      <component id="e5462" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Services"/>
+        </properties>
+      </component>
+      <component id="8adaf" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Args"/>
+        </properties>
+      </component>
+      <scrollpane id="2b07f">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="6b159" class="javax.swing.JTextArea" binding="argsJTextArea">
+            <constraints/>
+            <properties>
+              <text value="--illegal-access=permit&#10;--add-modules java.se&#10;--add-opens java.base/jdk.internal.misc=ALL-UNNAMED&#10;--add-opens java.base/java.lang=ALL-UNNAMED&#10;--add-opens java.base/java.nio=ALL-UNNAMED&#10;--add-opens java.base/sun.nio.ch=ALL-UNNAMED&#10;--add-opens java.management/sun.management=ALL-UNNAMED &#10;--add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED &#10;--add-exports java.base/jdk.internal.ref=ALL-UNNAMED&#10;-Drun.arguments=-Dderby.stream.error.field=com.uobgroup.pae.util.DerbyUtil.DEV_NULL&#10;-Ddisable.thread.safety=true&#10;-Dapp.home=C:\repo\pae\uob-pae\pae-microservices&#10;-Dchronicle.data.home=C:\repo\pae\uob-pae\pae-microservices\queue-storage&#10;-Djava.io.tmpdir=C:\repo\pae\uob-pae\pae-microservices\temp"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="20123" class="javax.swing.JButton" binding="reloadButton" default-binding="true">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Reload"/>
+        </properties>
+      </component>
+      <scrollpane id="8bc4b">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="331f" class="javax.swing.JTextArea" binding="serviceJTextArea">
+            <constraints/>
+            <properties>
+              <lineWrap value="false"/>
+              <text value="pae-auth-rs=localhost:7001&#10;pae-rfs-rs=localhost:7002"/>
+              <wrapStyleWord value="false"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
