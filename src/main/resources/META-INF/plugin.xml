@@ -1,20 +1,20 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
-<idea-plugin>
+<idea-plugin require-restart="true">
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>org.uobgroup.intellij.plugin.intellij-plugin-pae-service</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Intellij-plugin-pae-service</name>
+    <name>PAE Service Manager</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="dushmanthab99@gmail.com" url="https://www.uobgorup.com">uobgroup</vendor>
+    <vendor email="Dushmantha.Bandaranayake@uobgroup.com" url="https://www.uobgorup.com">uobgroup</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
+    This plugin help you to start, stop, view logs of pae rs services.<br>
     <em>most HTML tags may be used</em>
   ]]></description>
 
