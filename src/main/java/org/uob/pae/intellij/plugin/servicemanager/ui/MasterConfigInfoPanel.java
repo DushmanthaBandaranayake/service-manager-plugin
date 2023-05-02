@@ -1,10 +1,12 @@
 package org.uob.pae.intellij.plugin.servicemanager.ui;
 
+import com.intellij.ide.util.PropertiesComponent;
 import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.PersistableJTexAreaActionKeyListener;
 import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.PersistableJTexFielsActionKeyListener;
 import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.ReloadButtonActionListener;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 
 public class MasterConfigInfoPanel extends InfoPanel {
@@ -38,15 +40,35 @@ public class MasterConfigInfoPanel extends InfoPanel {
     }
 
     public static void init() {
+
         instance = new MasterConfigInfoPanel("[Configurations]");
+
         instance.serviceJTextArea.addKeyListener(new PersistableJTexAreaActionKeyListener(instance.serviceJTextArea, PERSISTENCE_KEY_SERVICE_INFO));
+        restore(instance.serviceJTextArea, PERSISTENCE_KEY_SERVICE_INFO);
+
         instance.argsJTextArea.addKeyListener(new PersistableJTexAreaActionKeyListener(instance.argsJTextArea, PERSISTENCE_KEY_ARGS));
+        restore(instance.argsJTextArea, PERSISTENCE_KEY_ARGS);
 
         instance.deployFolderJTextField.addKeyListener(new PersistableJTexFielsActionKeyListener(instance.deployFolderJTextField, PERSISTENCE_KEY_DEPLOY_FOLDER));
+        restore(instance.deployFolderJTextField, PERSISTENCE_KEY_DEPLOY_FOLDER);
+
         instance.logFolderTextField.addKeyListener(new PersistableJTexFielsActionKeyListener(instance.logFolderTextField, PERSISTENCE_KEY_LOG_FOLDER));
+        restore(instance.logFolderTextField, PERSISTENCE_KEY_LOG_FOLDER);
+
         instance.javaHomeTextField.addKeyListener(new PersistableJTexFielsActionKeyListener(instance.javaHomeTextField, PERSISTENCE_KEY_JAVA_HOME));
+        restore(instance.javaHomeTextField, PERSISTENCE_KEY_JAVA_HOME);
+
         instance.profileTextField.addKeyListener(new PersistableJTexFielsActionKeyListener(instance.profileTextField, PERSISTENCE_KEY_PROFILE));
+        restore(instance.profileTextField, PERSISTENCE_KEY_PROFILE);
+
         instance.reloadButton.addActionListener(new ReloadButtonActionListener());
+    }
+
+    private static void restore(JTextComponent jTextComponent, String key) {
+        String persistedValue = PropertiesComponent.getInstance().getValue(key);
+        if (persistedValue != null) {
+            jTextComponent.setText(persistedValue);
+        }
     }
 
     public JTextField getJavaHomeTextField() {

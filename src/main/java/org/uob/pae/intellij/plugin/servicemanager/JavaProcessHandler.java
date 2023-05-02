@@ -8,17 +8,18 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class JavaProcessHandler {
 
-    final static Map<String, Process> processCache = new ConcurrentHashMap<>();
+    public final static Map<String, Process> PROCESS_CACHE = new ConcurrentHashMap<>();
 
     public static void startProcess(RestServiceInfoPanel serviceInfoPanel) {
 
         String service = serviceInfoPanel.getServiceName();
 
         try {
-            processCache.computeIfPresent(service, (k, v) -> {
+            PROCESS_CACHE.computeIfPresent(service, (k, v) -> {
                 serviceInfoPanel.getLogJTextArea().append("Found existing process. PID =" + v.pid() + " This process will be terminated!\n");
                 v.destroy();
                 return null;
@@ -57,7 +58,11 @@ public class JavaProcessHandler {
             Process proc = processBuilder.start();
 
             serviceInfoPanel.getLogJTextArea().append("############" + service + " [ process started Process Id - " + proc.pid() + "] ###############\n");
-            processCache.put(service, proc);
+            proc.waitFor(10, TimeUnit.SECONDS);
+
+            if (proc.isAlive()) {
+                PROCESS_CACHE.put(service, proc);
+            }
 
         } catch (Exception e) {
             serviceInfoPanel.getLogJTextArea().append("Error starting process " + (e.getMessage() != null ? e.getMessage() : e) + "/n");
@@ -87,8 +92,9 @@ public class JavaProcessHandler {
     }
 
     public static void stopProcess(RestServiceInfoPanel serviceInfoPanel) {
+
         String serviceName = serviceInfoPanel.getServiceName();
-        Process process = processCache.get(serviceName);
+        Process process = PROCESS_CACHE.get(serviceName);
 
         serviceInfoPanel.getLogJTextArea().append("Stopping process..." + "\n");
         if (process == null) {
@@ -96,6 +102,7 @@ public class JavaProcessHandler {
         } else {
             serviceInfoPanel.getLogJTextArea().append("stopping pid=" + process.pid() + "\n");
             process.destroy();
+            PROCESS_CACHE.remove(serviceName);
             serviceInfoPanel.getLogJTextArea().append("stopped pid=" + process.pid() + "\n");
         }
 
@@ -106,7 +113,7 @@ public class JavaProcessHandler {
         String service = serviceInfoPanel.getServiceName();
 
         try {
-            processCache.computeIfPresent(service, (k, v) -> {
+            PROCESS_CACHE.computeIfPresent(service, (k, v) -> {
                 serviceInfoPanel.getLogJTextArea().append("Found existing process. PID =" + v.pid() + " This process will be terminated!\n");
                 v.destroy();
                 return null;
@@ -144,13 +151,16 @@ public class JavaProcessHandler {
             Process proc = processBuilder.start();
 
             serviceInfoPanel.getLogJTextArea().append("############" + service + " [ process started Process Id - " + proc.pid() + "] ###############\n");
-            processCache.put(service, proc);
+            proc.waitFor(10, TimeUnit.SECONDS);
+
+            if (proc.isAlive()) {
+                PROCESS_CACHE.put(service, proc);
+            }
 
         } catch (Exception e) {
             serviceInfoPanel.getLogJTextArea().append("Error starting process " + (e.getMessage() != null ? e.getMessage() : e) + "/n");
         }
 
     }
-
 
 }
