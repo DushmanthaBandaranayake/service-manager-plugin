@@ -2,6 +2,7 @@ package org.uob.pae.intellij.plugin.servicemanager;
 
 import org.uob.pae.intellij.plugin.servicemanager.ui.MasterConfigInfoPanel;
 import org.uob.pae.intellij.plugin.servicemanager.ui.RestServiceInfoPanel;
+import org.uob.pae.intellij.plugin.servicemanager.ui.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,10 +34,14 @@ public class JavaProcessHandler {
 
             int index = 0;
             for (String param : MasterConfigInfoPanel.getInstance().getArgsJTextArea().getText().split("\\n")) {
-                args[index++] = param;
+                if (!param.startsWith("#")) {
+                    args[index++] = param;
+                }
             }
             args[index++] = "-Dserver.port=" + getPort(serviceInfoPanel);
             args[index] = "-Dspring-boot.run.profiles=" + MasterConfigInfoPanel.getInstance().getProfileTextField().getText();
+
+            args = Utils.cleanArray(args);//remove null values
 
             String[] cmdArr = new String[args.length + 4];
 
@@ -46,7 +51,7 @@ public class JavaProcessHandler {
             cmdArr[args.length + 2] = deployFolderPath + "/" + service + "-fat.war";
             cmdArr[args.length + 3] = MasterConfigInfoPanel.getInstance().getProfileTextField().getText();
 
-            serviceInfoPanel.getLogJTextArea().append(Arrays.toString(cmdArr).replace(",","") + "\n");
+            serviceInfoPanel.getLogJTextArea().append(Arrays.toString(cmdArr).replace(",", "") + "\n");
 
             ProcessBuilder processBuilder = new ProcessBuilder(cmdArr);
             serviceInfoPanel.getLogJTextArea().append("Echo Java Version \n");
@@ -127,9 +132,13 @@ public class JavaProcessHandler {
 
             int index = 0;
             for (String param : MasterConfigInfoPanel.getInstance().getArgsJTextArea().getText().split("\\n")) {
-                args[index++] = param;
+                if (!param.startsWith("#")) {
+                    args[index++] = param;
+                }
             }
             args[index] = "-Dspring-boot.run.profiles=" + MasterConfigInfoPanel.getInstance().getProfileTextField().getText();
+
+            args = Utils.cleanArray(args);//remove null values
 
             String[] cmdArr = new String[args.length + 4];
 
@@ -139,7 +148,7 @@ public class JavaProcessHandler {
             cmdArr[args.length + 2] = deployFolderPath + "/" + service + ".jar";
             cmdArr[args.length + 3] = MasterConfigInfoPanel.getInstance().getProfileTextField().getText();
 
-            serviceInfoPanel.getLogJTextArea().append(Arrays.toString(cmdArr).replace(",","") + "\n");
+            serviceInfoPanel.getLogJTextArea().append(Arrays.toString(cmdArr).replace(",", "") + "\n");
 
             ProcessBuilder processBuilder = new ProcessBuilder(cmdArr);
             serviceInfoPanel.getLogJTextArea().append("Echo Java Version \n");

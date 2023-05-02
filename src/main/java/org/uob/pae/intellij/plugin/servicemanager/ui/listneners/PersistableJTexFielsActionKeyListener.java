@@ -28,6 +28,6 @@ public class PersistableJTexFielsActionKeyListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        PropertiesComponent.getInstance().setValue(key, jTextField.getText());
     }
 }

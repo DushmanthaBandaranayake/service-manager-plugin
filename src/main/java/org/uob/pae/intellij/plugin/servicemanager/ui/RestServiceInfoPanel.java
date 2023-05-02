@@ -2,7 +2,6 @@ package org.uob.pae.intellij.plugin.servicemanager.ui;
 
 import com.intellij.openapi.application.ApplicationManager;
 import org.apache.commons.io.input.Tailer;
-import org.apache.commons.io.input.TailerListener;
 import org.apache.commons.io.input.TailerListenerAdapter;
 import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.JarFileStartButtonListener;
 import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.JarFileStopButtonListener;
@@ -23,6 +22,7 @@ public class RestServiceInfoPanel extends InfoPanel {
     private JButton startButton;
     private JButton stopButton;
     private JTextArea logJTextArea;
+    private Tailer tailer;
 
     RestServiceInfoPanel(String serviceName) {
         super(serviceName);
@@ -33,10 +33,9 @@ public class RestServiceInfoPanel extends InfoPanel {
 
         startButton.addActionListener(new StartButtonActionListener(this));
         stopButton.addActionListener(new StopButtonActionListener(this));
-        tailLogFile();
+        initTailingLog();
 
     }
-
 
     public void addStartActionButtonListener(JarFileStartButtonListener jarFileStartButtonListener) {
         for (ActionListener actionListener : startButton.getActionListeners()) {
@@ -60,11 +59,14 @@ public class RestServiceInfoPanel extends InfoPanel {
         }
     }
 
-    public void tailLogFile() {
-        TailerListener listener = new MyListener();
+    public void initTailingLog() {
+        if (tailer != null) {
+            tailer.stop();
+        }
+        var listener = new MyListener();
         String logPath = MasterConfigInfoPanel.getInstance().getLogFolderTextField().getText();
 
-        Tailer tailer = new Tailer(new File(logPath + "\\" + serviceName + ".out"), listener, 1000);
+        tailer = new Tailer(new File(logPath + "\\" + serviceName + ".out"), listener, 1000);
         ApplicationManager.getApplication().executeOnPooledThread(tailer);
 
     }

@@ -29,6 +29,7 @@ public class MainPanel {
 
         instance = new MainPanel();
         instance.jListServices.setCellRenderer(new ServiceListCellRenderer());
+
         //setup services list
         DefaultListModel<InfoPanel> defaultListModel = new DefaultListModel<>();
 

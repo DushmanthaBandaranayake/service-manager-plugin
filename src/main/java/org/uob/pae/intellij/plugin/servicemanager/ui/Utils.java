@@ -9,7 +9,9 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Utils {
     public static final String INTELLIJ_NOTIFICATION_GROUP = "pae-service-manager";
@@ -50,6 +52,12 @@ public class Utils {
                 .getNotificationGroup(INTELLIJ_NOTIFICATION_GROUP)
                 .createNotification(message, notificationType)
                 .notify(null);
+
+    }
+
+    public static String[] cleanArray(String[] array) {
+
+        return Arrays.stream(array).filter(Objects::nonNull).toArray(String[]::new);
 
     }
 

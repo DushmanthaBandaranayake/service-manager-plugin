@@ -27,7 +27,7 @@ public class PersistableJTexAreaActionKeyListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        PropertiesComponent.getInstance().setValue(key, jTextArea.getText());
     }
 
 }
