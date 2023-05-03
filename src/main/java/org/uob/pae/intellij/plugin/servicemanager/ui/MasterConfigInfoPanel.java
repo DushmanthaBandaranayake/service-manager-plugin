@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class MasterConfigInfoPanel extends InfoPanel {
 
-    private JPanel mainConfigPanel;
+    private JPanel configPanel;
     private JTextField javaHomeTextField;
     private JTextField logFolderTextField;
     private JTextField deployFolderJTextField;
@@ -19,6 +19,7 @@ public class MasterConfigInfoPanel extends InfoPanel {
     private JTextArea serviceJTextArea;
     private JTextArea argsJTextArea;
     private JButton reloadButton;
+
     private static MasterConfigInfoPanel instance;
 
     public static final String PERSISTENCE_KEY_JAVA_HOME = "javaHomeTextField";
@@ -61,7 +62,7 @@ public class MasterConfigInfoPanel extends InfoPanel {
         instance.profileTextField.addKeyListener(new PersistableJTexFielsActionKeyListener(instance.profileTextField, PERSISTENCE_KEY_PROFILE));
         restore(instance.profileTextField, PERSISTENCE_KEY_PROFILE);
 
-        instance.reloadButton.addActionListener(new ReloadButtonActionListener());
+        instance.reloadButton.addActionListener(new ReloadButtonActionListener(instance));
     }
 
     private static void restore(JTextComponent jTextComponent, String key) {
@@ -87,8 +88,8 @@ public class MasterConfigInfoPanel extends InfoPanel {
         return serviceJTextArea;
     }
 
-    public JPanel getMainConfigPanel() {
-        return mainConfigPanel;
+    public JPanel getConfigPanel() {
+        return configPanel;
     }
 
     public JButton getReloadButton() {
@@ -105,7 +106,7 @@ public class MasterConfigInfoPanel extends InfoPanel {
 
     @Override
     public Component getContentPanel() {
-        return mainConfigPanel;
+        return configPanel;
     }
 
 }

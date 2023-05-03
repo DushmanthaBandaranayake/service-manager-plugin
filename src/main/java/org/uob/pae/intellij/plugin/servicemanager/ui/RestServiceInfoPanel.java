@@ -22,6 +22,7 @@ public class RestServiceInfoPanel extends InfoPanel {
     private JTextField argsTextField;
     private JCheckBox argsCheckBox;
     private JButton clearButton;
+    private JTextField statusTextField;
     private Tailer tailer;
 
     RestServiceInfoPanel(String serviceName) {
@@ -67,7 +68,7 @@ public class RestServiceInfoPanel extends InfoPanel {
         var listener = new MyListener();
         String logPath = MasterConfigInfoPanel.getInstance().getLogFolderTextField().getText();
 
-        tailer = new Tailer(new File(logPath + "\\" + serviceName + ".out"), listener, 1000,true);
+        tailer = new Tailer(new File(logPath + "\\" + serviceName + ".out"), listener, 1000, true);
         ApplicationManager.getApplication().executeOnPooledThread(tailer);
 
     }
@@ -87,5 +88,9 @@ public class RestServiceInfoPanel extends InfoPanel {
 
     public JTextArea getLogJTextArea() {
         return logJTextArea;
+    }
+
+    public JTextField getStatusTextField() {
+        return statusTextField;
     }
 }

@@ -61,6 +61,18 @@ public class Utils {
 
     }
 
+    public static String getPort(RestServiceInfoPanel serviceInfoPanel) {
+
+        String[] services = MasterConfigInfoPanel.getInstance().getServiceJTextArea().getText().split("\n");
+        for (String service : services) {
+            String[] serviceParams = service.split("=");
+            if (serviceInfoPanel.getServiceName().equals(serviceParams[0])) {
+                return serviceParams[1].split(":")[1];
+            }
+        }
+        return "";
+    }
+
     public static List<InfoPanel> createRestServicePanels() {
         List<InfoPanel> list = new ArrayList<>();
         list.add(MasterConfigInfoPanel.getInstance());

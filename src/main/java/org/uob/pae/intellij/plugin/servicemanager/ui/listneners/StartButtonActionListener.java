@@ -23,6 +23,7 @@ public class StartButtonActionListener implements ActionListener {
 
         try {
             restServiceInfoPanel.getLogJTextArea().setText("");
+            restServiceInfoPanel.getStatusTextField().setText("");
             restServiceInfoPanel.initTailingLog();
             String serviceName = restServiceInfoPanel.getServiceName();
             String deployFolderPath = MasterConfigInfoPanel.getInstance().getDeployFolderJTextField().getText();

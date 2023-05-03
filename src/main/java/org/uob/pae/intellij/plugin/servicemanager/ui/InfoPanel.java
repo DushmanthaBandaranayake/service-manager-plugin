@@ -5,6 +5,7 @@ import java.awt.*;
 public abstract class InfoPanel {
 
     protected final String serviceName;
+    private MainPanel mainPanel;
 
     public InfoPanel(String serviceName) {
         this.serviceName = serviceName;
@@ -19,5 +20,14 @@ public abstract class InfoPanel {
 
     public String getServiceName() {
         return serviceName;
+    }
+
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public void setMainPanel(MainPanel mainPanel) {
+
+        this.mainPanel = mainPanel;
     }
 }

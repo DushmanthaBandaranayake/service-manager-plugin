@@ -41,7 +41,8 @@ public class JavaProcessHandler {
             if (serviceInfoPanel.getArgsCheckBox().isSelected()) {
                 commands.add(serviceInfoPanel.getArgsTextField().getText());
             }
-            commands.add("-Dserver.port=" + getPort(serviceInfoPanel));
+            String port = Utils.getPort(serviceInfoPanel);
+            commands.add("-Dserver.port=" + port);
             commands.add("-Dspring-boot.run.profiles=" + MasterConfigInfoPanel.getInstance().getProfileTextField().getText());
             commands.add("-jar");
             commands.add(deployFolderPath + "/" + service + "-fat.war");
@@ -65,6 +66,7 @@ public class JavaProcessHandler {
 
             if (proc.isAlive()) {
                 PROCESS_CACHE.put(service, proc);
+                serviceInfoPanel.getStatusTextField().setText("Service started ## localhost:"+ port+"/"+service+" ##");
             }
 
         } catch (Exception e) {
@@ -73,25 +75,13 @@ public class JavaProcessHandler {
 
     }
 
-    private static String getPort(RestServiceInfoPanel serviceInfoPanel) {
-
-        String[] services = MasterConfigInfoPanel.getInstance().getServiceJTextArea().getText().split("\n");
-        for (String service : services) {
-            String[] serviceParams = service.split("=");
-            if (serviceInfoPanel.getServiceName().equals(serviceParams[0])) {
-                return serviceParams[1].split(":")[1];
-            }
-        }
-        return "";
-    }
-
     private static void echoJavaVersion(String log, String javaHome) throws IOException, InterruptedException {
 
         var processBuilder = new ProcessBuilder(javaHome.isBlank() ? "java" : javaHome + "/bin/" + "java", "--version");
         processBuilder.redirectErrorStream(true);
         processBuilder.redirectOutput(new File(log));
         Process proc = processBuilder.start();
-        proc.waitFor();
+        proc.waitFor(5,TimeUnit.SECONDS);
     }
 
     public static void stopProcess(RestServiceInfoPanel serviceInfoPanel) {

@@ -8,11 +8,18 @@ import javax.swing.event.ListSelectionListener;
 
 public class ServiceListSelectionListener implements ListSelectionListener {
 
+    private MainPanel mainPanel;
+
+    public ServiceListSelectionListener(MainPanel mainPanel) {
+
+        this.mainPanel = mainPanel;
+    }
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
-        var jSplitPane = MainPanel.getInstance().getjSplitPane();
-        InfoPanel selectedValue = MainPanel.getInstance().getJListServices().getSelectedValue();
+        var jSplitPane = mainPanel.getjSplitPane();
+        InfoPanel selectedValue = mainPanel.getJListServices().getSelectedValue();
         if (selectedValue != null) {
             jSplitPane.setRightComponent(selectedValue.getContentPanel());
         }

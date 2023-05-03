@@ -12,23 +12,26 @@ public class MainPanel {
     private JPanel mainPanel;
     private JList<InfoPanel> jListServices;
     private JSplitPane jSplitPane;
-    private static MainPanel instance;
 
+
+    public MainPanel(){
+        init();
+    }
+ /*
     public static MainPanel getInstance() {
         if (instance == null) {
             init();
         }
         return instance;
-    }
+    }*/
 
 
     /**
      * Initialize main window. This method is also used  for reinitializing.
      */
-    private static void init() {
+    private void init() {
 
-        instance = new MainPanel();
-        instance.jListServices.setCellRenderer(new ServiceListCellRenderer());
+        this.jListServices.setCellRenderer(new ServiceListCellRenderer());
 
         //setup services list
         DefaultListModel<InfoPanel> defaultListModel = new DefaultListModel<>();
@@ -36,13 +39,14 @@ public class MainPanel {
         try {
             for (InfoPanel infoPanel : createRestServicePanels()) {
                 defaultListModel.addElement(infoPanel);
+                infoPanel.setMainPanel(this);
             }
         } catch (Exception e) {
             Utils.fireNotification("Invalid Service Configuration. Please make check your service name and ports ", NotificationType.ERROR);
         }
 
-        instance.jListServices.setModel(defaultListModel);
-        instance.jListServices.addListSelectionListener(new ServiceListSelectionListener());
+        jListServices.setModel(defaultListModel);
+        jListServices.addListSelectionListener(new ServiceListSelectionListener(this));
 
     }
 

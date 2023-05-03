@@ -10,7 +10,6 @@ public class StopButtonActionListener implements ActionListener {
 
     private final RestServiceInfoPanel restServiceInfoPanel;
 
-
     public StopButtonActionListener(RestServiceInfoPanel restServiceInfoPanel) {
         this.restServiceInfoPanel = restServiceInfoPanel;
     }
@@ -19,6 +18,7 @@ public class StopButtonActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         try {
+            restServiceInfoPanel.getStatusTextField().setText("");
             JavaProcessHandler.stopProcess(restServiceInfoPanel);
         } catch (Exception ex) {
             ex.printStackTrace();
