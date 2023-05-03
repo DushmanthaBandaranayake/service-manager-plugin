@@ -40,12 +40,12 @@ public class JavaProcessHandler {
             var deployFolderPath = MasterConfigInfoPanel.getInstance().getDeployFolderJTextField().getText();
 
             ArrayList<String> commands = getExecutionCommonCommands(serviceInfoPanel);
-            commands.add("-jar");
-            commands.add((deployFolderPath + "/" + service) + (isFatJar ? "-fat.war" : ".jar"));
-            commands.add(MasterConfigInfoPanel.getInstance().getProfileTextField().getText());
             if (isFatJar) {
                 commands.add("-Dserver.port=" + Utils.getPort(serviceInfoPanel));
             }
+            commands.add("-jar");
+            commands.add((deployFolderPath + "/" + service) + (isFatJar ? "-fat.war" : ".jar"));
+            commands.add(MasterConfigInfoPanel.getInstance().getProfileTextField().getText());
 
             serviceInfoPanel.getLogJTextArea().append(StringUtils.join(commands, " ") + "\n");
 
