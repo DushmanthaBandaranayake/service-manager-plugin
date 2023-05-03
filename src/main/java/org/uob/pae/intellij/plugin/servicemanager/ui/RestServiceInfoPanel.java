@@ -3,10 +3,7 @@ package org.uob.pae.intellij.plugin.servicemanager.ui;
 import com.intellij.openapi.application.ApplicationManager;
 import org.apache.commons.io.input.Tailer;
 import org.apache.commons.io.input.TailerListenerAdapter;
-import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.JarFileStartButtonListener;
-import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.JarFileStopButtonListener;
-import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.StartButtonActionListener;
-import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.StopButtonActionListener;
+import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +19,9 @@ public class RestServiceInfoPanel extends InfoPanel {
     private JButton startButton;
     private JButton stopButton;
     private JTextArea logJTextArea;
+    private JTextField argsTextField;
+    private JCheckBox argsCheckBox;
+    private JButton clearButton;
     private Tailer tailer;
 
     RestServiceInfoPanel(String serviceName) {
@@ -33,6 +33,7 @@ public class RestServiceInfoPanel extends InfoPanel {
 
         startButton.addActionListener(new StartButtonActionListener(this));
         stopButton.addActionListener(new StopButtonActionListener(this));
+        clearButton.addActionListener(new ClearButtonActionListener(this));
         initTailingLog();
 
     }
@@ -66,7 +67,7 @@ public class RestServiceInfoPanel extends InfoPanel {
         var listener = new MyListener();
         String logPath = MasterConfigInfoPanel.getInstance().getLogFolderTextField().getText();
 
-        tailer = new Tailer(new File(logPath + "\\" + serviceName + ".out"), listener, 1000);
+        tailer = new Tailer(new File(logPath + "\\" + serviceName + ".out"), listener, 1000,true);
         ApplicationManager.getApplication().executeOnPooledThread(tailer);
 
     }
@@ -76,12 +77,12 @@ public class RestServiceInfoPanel extends InfoPanel {
         return contentPanel;
     }
 
-    public JButton getStartButton() {
-        return startButton;
+    public JTextField getArgsTextField() {
+        return argsTextField;
     }
 
-    public JButton getStopButton() {
-        return stopButton;
+    public JCheckBox getArgsCheckBox() {
+        return argsCheckBox;
     }
 
     public JTextArea getLogJTextArea() {

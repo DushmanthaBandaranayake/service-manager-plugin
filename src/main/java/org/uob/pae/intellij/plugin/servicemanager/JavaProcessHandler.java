@@ -6,8 +6,7 @@ import org.uob.pae.intellij.plugin.servicemanager.ui.Utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -30,30 +29,29 @@ public class JavaProcessHandler {
             var logPath = MasterConfigInfoPanel.getInstance().getLogFolderTextField().getText();
             var javaHome = MasterConfigInfoPanel.getInstance().getJavaHomeTextField().getText();
 
-            String[] args = new String[MasterConfigInfoPanel.getInstance().getArgsJTextArea().getText().split("\\n").length + 2];
-
-            int index = 0;
-            for (String param : MasterConfigInfoPanel.getInstance().getArgsJTextArea().getText().split("\\n")) {
+            String[] args = MasterConfigInfoPanel.getInstance().getArgsJTextArea().getText().split("\\n");
+            List<String> commands = new ArrayList<>();
+            commands.add(javaHome.isBlank() ? "java" : javaHome + "/bin/" + "java");
+            for (String param : args) {
                 if (!param.startsWith("#")) {
-                    args[index++] = param;
+                    commands.add(param);
                 }
             }
-            args[index++] = "-Dserver.port=" + getPort(serviceInfoPanel);
-            args[index] = "-Dspring-boot.run.profiles=" + MasterConfigInfoPanel.getInstance().getProfileTextField().getText();
 
-            args = Utils.cleanArray(args);//remove null values
+            if (serviceInfoPanel.getArgsCheckBox().isSelected()) {
+                commands.add(serviceInfoPanel.getArgsTextField().getText());
+            }
+            commands.add("-Dserver.port=" + getPort(serviceInfoPanel));
+            commands.add("-Dspring-boot.run.profiles=" + MasterConfigInfoPanel.getInstance().getProfileTextField().getText());
+            commands.add("-jar");
+            commands.add(deployFolderPath + "/" + service + "-fat.war");
+            commands.add(MasterConfigInfoPanel.getInstance().getProfileTextField().getText());
 
-            String[] cmdArr = new String[args.length + 4];
+            String[] cmdArray = commands.toArray(new String[0]);
 
-            cmdArr[0] = javaHome.isBlank() ? "java " : javaHome + "/bin/" + "java";
-            System.arraycopy(args, 0, cmdArr, 1, args.length);
-            cmdArr[args.length + 1] = "-jar";
-            cmdArr[args.length + 2] = deployFolderPath + "/" + service + "-fat.war";
-            cmdArr[args.length + 3] = MasterConfigInfoPanel.getInstance().getProfileTextField().getText();
+            serviceInfoPanel.getLogJTextArea().append((javaHome.isBlank() ? "java " : javaHome + "/bin/" + "java ") + Arrays.toString(cmdArray).replace(",",""));
 
-            serviceInfoPanel.getLogJTextArea().append(Arrays.toString(cmdArr).replace(",", "") + "\n");
-
-            ProcessBuilder processBuilder = new ProcessBuilder(cmdArr);
+            ProcessBuilder processBuilder = new ProcessBuilder(cmdArray);
             serviceInfoPanel.getLogJTextArea().append("Echo Java Version \n");
             String log = logPath + "/" + service + ".out";
             echoJavaVersion(log, javaHome);
