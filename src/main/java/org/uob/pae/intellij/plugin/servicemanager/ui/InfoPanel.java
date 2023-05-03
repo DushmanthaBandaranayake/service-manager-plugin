@@ -2,6 +2,9 @@ package org.uob.pae.intellij.plugin.servicemanager.ui;
 
 import java.awt.*;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public abstract class InfoPanel {
 
     protected final String serviceName;

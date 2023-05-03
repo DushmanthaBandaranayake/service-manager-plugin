@@ -8,10 +8,12 @@ import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.File;
 
 /**
  * Rest Service information panel
+ *
+ * @author Dushmantha Bandaranayake
  */
 public class RestServiceInfoPanel extends InfoPanel {
 

@@ -6,6 +6,9 @@ import org.uob.pae.intellij.plugin.servicemanager.ui.RestServiceInfoPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public class StopButtonActionListener implements ActionListener {
 
     private final RestServiceInfoPanel restServiceInfoPanel;

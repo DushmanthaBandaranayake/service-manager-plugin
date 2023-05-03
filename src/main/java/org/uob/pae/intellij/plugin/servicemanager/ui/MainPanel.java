@@ -7,24 +7,18 @@ import javax.swing.*;
 
 import static org.uob.pae.intellij.plugin.servicemanager.ui.Utils.createRestServicePanels;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public class MainPanel {
 
     private JPanel mainPanel;
     private JList<InfoPanel> jListServices;
     private JSplitPane jSplitPane;
 
-
-    public MainPanel(){
+    public MainPanel() {
         init();
     }
- /*
-    public static MainPanel getInstance() {
-        if (instance == null) {
-            init();
-        }
-        return instance;
-    }*/
-
 
     /**
      * Initialize main window. This method is also used  for reinitializing.

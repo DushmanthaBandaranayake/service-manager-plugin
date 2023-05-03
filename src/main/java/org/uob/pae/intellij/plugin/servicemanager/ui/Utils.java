@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public class Utils {
     public static final String INTELLIJ_NOTIFICATION_GROUP = "pae-service-manager";
 

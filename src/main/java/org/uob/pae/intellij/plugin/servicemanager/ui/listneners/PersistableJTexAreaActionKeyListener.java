@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public class PersistableJTexAreaActionKeyListener implements KeyListener {
     private final JTextArea jTextArea;
     private final String key;

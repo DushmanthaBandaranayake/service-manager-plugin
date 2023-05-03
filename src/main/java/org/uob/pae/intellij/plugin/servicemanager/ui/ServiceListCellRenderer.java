@@ -1,13 +1,10 @@
 package org.uob.pae.intellij.plugin.servicemanager.ui;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.util.IconLoader;
 import org.uob.pae.intellij.plugin.servicemanager.JavaProcessHandler;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 

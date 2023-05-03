@@ -30,7 +30,7 @@ public class StartButtonActionListener implements ActionListener {
             String executableFile = deployFolderPath + "\\" + serviceName + "-fat.war";
 
             if (new File(executableFile).isFile()) {
-                JavaProcessHandler.startProcess(restServiceInfoPanel);
+                JavaProcessHandler.startFatWar(restServiceInfoPanel);
             } else {
                 Utils.fireNotification(executableFile + " Not Found!!", NotificationType.ERROR);
             }

@@ -5,6 +5,9 @@ import org.uob.pae.intellij.plugin.servicemanager.ui.RestServiceInfoPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public class ClearButtonActionListener implements ActionListener {
     RestServiceInfoPanel serviceInfoPanel;
 

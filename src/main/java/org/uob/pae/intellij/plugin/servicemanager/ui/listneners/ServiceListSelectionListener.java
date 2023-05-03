@@ -6,6 +6,9 @@ import org.uob.pae.intellij.plugin.servicemanager.ui.MainPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public class ServiceListSelectionListener implements ListSelectionListener {
 
     private MainPanel mainPanel;

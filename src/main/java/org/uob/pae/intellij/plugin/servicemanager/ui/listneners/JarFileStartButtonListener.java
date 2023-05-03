@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * @author Dushmantha Bandaranayake
+ */
 public class JarFileStartButtonListener implements ActionListener {
     private final RestServiceInfoPanel restServiceInfoPanel;
 
