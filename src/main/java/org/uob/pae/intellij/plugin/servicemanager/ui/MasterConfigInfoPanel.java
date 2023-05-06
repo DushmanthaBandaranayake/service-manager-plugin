@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 
-public class MasterConfigInfoPanel extends InfoPanel {
+public class MasterConfigInfoPanel extends InfoPanel  {
 
     private JPanel configPanel;
     private JTextField javaHomeTextField;
@@ -107,6 +107,16 @@ public class MasterConfigInfoPanel extends InfoPanel {
     @Override
     public Component getContentPanel() {
         return configPanel;
+    }
+
+    @Override
+    public boolean isRunning() {
+        return false;
+    }
+
+    @Override
+    public void setRunning(boolean running) {
+
     }
 
 }

@@ -3,29 +3,42 @@ package org.uob.pae.intellij.plugin.servicemanager.ui.listneners;
 import org.uob.pae.intellij.plugin.servicemanager.ui.InfoPanel;
 import org.uob.pae.intellij.plugin.servicemanager.ui.MainPanel;
 
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-/**
- * @author Dushmantha Bandaranayake
- */
-public class ServiceListSelectionListener implements ListSelectionListener {
-
+public class ServiceListMouseListener implements MouseListener {
     private MainPanel mainPanel;
 
-    public ServiceListSelectionListener(MainPanel mainPanel) {
-
+    public ServiceListMouseListener(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-
+    public void mouseClicked(MouseEvent e) {
         var jSplitPane = mainPanel.getjSplitPane();
         InfoPanel selectedValue = mainPanel.getJListServices().getSelectedValue();
         if (selectedValue != null) {
             jSplitPane.setRightComponent(selectedValue.getContentPanel());
         }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }

@@ -1,10 +1,12 @@
 package org.uob.pae.intellij.plugin.servicemanager.ui;
 
 import com.intellij.notification.NotificationType;
-import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.ServiceListSelectionListener;
+import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.ServiceListMouseListener;
 
 import javax.swing.*;
+import java.util.List;
 
+import static org.uob.pae.intellij.plugin.servicemanager.ui.Context.SERVICE_PANELS;
 import static org.uob.pae.intellij.plugin.servicemanager.ui.Utils.createRestServicePanels;
 
 /**
@@ -25,13 +27,20 @@ public class MainPanel {
      */
     private void init() {
 
-        this.jListServices.setCellRenderer(new ServiceListCellRenderer());
-
         //setup services list
         DefaultListModel<InfoPanel> defaultListModel = new DefaultListModel<>();
 
         try {
-            for (InfoPanel infoPanel : createRestServicePanels()) {
+
+            List<InfoPanel> restServicePanels;
+            if (Context.getValue(SERVICE_PANELS) != null) {
+                restServicePanels = (List<InfoPanel>) Context.getValue(SERVICE_PANELS);
+            } else {
+                restServicePanels = createRestServicePanels();
+                Context.put(SERVICE_PANELS, restServicePanels);
+            }
+
+            for (InfoPanel infoPanel : restServicePanels) {
                 defaultListModel.addElement(infoPanel);
                 infoPanel.setMainPanel(this);
             }
@@ -40,8 +49,8 @@ public class MainPanel {
         }
 
         jListServices.setModel(defaultListModel);
-        jListServices.addListSelectionListener(new ServiceListSelectionListener(this));
-
+        jListServices.addMouseListener( new ServiceListMouseListener(this));
+        jListServices.setCellRenderer(new ServiceListCellRenderer());
     }
 
     public JList<InfoPanel> getJListServices() {

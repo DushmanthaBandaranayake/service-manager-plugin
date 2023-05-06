@@ -23,6 +23,7 @@ public class StopButtonActionListener implements ActionListener {
         try {
             restServiceInfoPanel.getStatusTextField().setText("");
             JavaProcessHandler.stopProcess(restServiceInfoPanel);
+            restServiceInfoPanel.setRunning(false);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

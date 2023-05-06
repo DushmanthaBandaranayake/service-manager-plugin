@@ -6,7 +6,10 @@ import org.uob.pae.intellij.plugin.servicemanager.JavaProcessHandler;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static org.uob.pae.intellij.plugin.servicemanager.ui.Context.PROCESS_CACHE;
 
 /**
  * Customized JTList cell renderer. This will decorate the JList with image icon.
@@ -14,8 +17,6 @@ import java.util.Map;
  * @author dushmantha
  */
 public class ServiceListCellRenderer extends DefaultListCellRenderer {
-
-    private static final Map<String, ImageIcon> imageIconCache = new HashMap<>();
 
     @Override
     public Component getListCellRendererComponent(
@@ -30,7 +31,7 @@ public class ServiceListCellRenderer extends DefaultListCellRenderer {
         if (value instanceof RestServiceInfoPanel) {
             RestServiceInfoPanel restServiceInfoPanel = (RestServiceInfoPanel) value;
 
-            Process process = JavaProcessHandler.PROCESS_CACHE.get(restServiceInfoPanel.getServiceName());
+            Process process = PROCESS_CACHE.get(restServiceInfoPanel.getServiceName());
             if (process != null && process.isAlive()) {
                 this.setIcon(AllIcons.Actions.Execute);
             } else {

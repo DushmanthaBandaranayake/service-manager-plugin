@@ -33,4 +33,18 @@ public abstract class InfoPanel {
 
         this.mainPanel = mainPanel;
     }
+
+    public abstract boolean isRunning();
+
+    public abstract void setRunning(boolean running);
+
+    @Override
+    public int hashCode() {
+        return serviceName.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.serviceName.equals(((InfoPanel) obj).serviceName);
+    }
 }

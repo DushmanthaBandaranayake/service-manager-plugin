@@ -27,8 +27,14 @@ public class RestServiceInfoPanel extends InfoPanel {
     private JTextField statusTextField;
     private Tailer tailer;
 
-    RestServiceInfoPanel(String serviceName) {
+    private boolean isRunning;
+    private String fileExtension;
+    private String port;
+
+    RestServiceInfoPanel(String serviceName, String fileExtension, String port) {
         super(serviceName);
+        this.fileExtension = fileExtension;
+        this.port = port;
         initUi();
     }
 
@@ -41,19 +47,18 @@ public class RestServiceInfoPanel extends InfoPanel {
 
     }
 
-    public void addStartActionButtonListener(JarFileStartButtonListener jarFileStartButtonListener) {
+    public void addStartActionButtonListener(StartButtonActionListener startButtonActionListener) {
         for (ActionListener actionListener : startButton.getActionListeners()) {
             startButton.removeActionListener(actionListener);
         }
-        startButton.addActionListener(jarFileStartButtonListener);
-
+        startButton.addActionListener(startButtonActionListener);
     }
 
-    public void addStopActionButtonListener(JarFileStopButtonListener jarFileStopButtonListener) {
+    public void addStopActionButtonListener(StopButtonActionListener stopButtonActionListener) {
         for (ActionListener actionListener : stopButton.getActionListeners()) {
             stopButton.removeActionListener(actionListener);
         }
-        stopButton.addActionListener(jarFileStopButtonListener);
+        stopButton.addActionListener(stopButtonActionListener);
     }
 
     public class MyListener extends TailerListenerAdapter {
@@ -94,5 +99,22 @@ public class RestServiceInfoPanel extends InfoPanel {
 
     public JTextField getStatusTextField() {
         return statusTextField;
+    }
+
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }

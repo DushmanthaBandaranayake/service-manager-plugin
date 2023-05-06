@@ -25,12 +25,16 @@ public class StartButtonActionListener implements ActionListener {
             restServiceInfoPanel.getLogJTextArea().setText("");
             restServiceInfoPanel.getStatusTextField().setText("");
             restServiceInfoPanel.initTailingLog();
+
             String serviceName = restServiceInfoPanel.getServiceName();
+            String extension = restServiceInfoPanel.getFileExtension();
             String deployFolderPath = MasterConfigInfoPanel.getInstance().getDeployFolderJTextField().getText();
-            String executableFile = deployFolderPath + "\\" + serviceName + "-fat.war";
+
+            String executableFile = deployFolderPath + "\\" + serviceName +"."+extension ;
 
             if (new File(executableFile).isFile()) {
-                JavaProcessHandler.startFatWar(restServiceInfoPanel);
+                JavaProcessHandler.execute(restServiceInfoPanel);
+                restServiceInfoPanel.setRunning(true);
             } else {
                 Utils.fireNotification(executableFile + " Not Found!!", NotificationType.ERROR);
             }

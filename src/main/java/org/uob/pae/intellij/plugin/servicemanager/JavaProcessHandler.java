@@ -12,23 +12,23 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+import static org.uob.pae.intellij.plugin.servicemanager.ui.Context.PROCESS_CACHE;
+
 /**
  * @author Dushmantha Bandaranayake
  */
 public class JavaProcessHandler {
 
-    public final static Map<String, Process> PROCESS_CACHE = new ConcurrentHashMap<>();
+    public static void execute(RestServiceInfoPanel serviceInfoPanel) {
 
-    public static void startFatWar(RestServiceInfoPanel serviceInfoPanel) {
-        startProcess(serviceInfoPanel, true);
+        startProcess(serviceInfoPanel);
     }
 
-    public static void startJar(RestServiceInfoPanel serviceInfoPanel) {
-        startProcess(serviceInfoPanel, false);
-    }
+    private static void startProcess(RestServiceInfoPanel serviceInfoPanel) {
 
-    private static void startProcess(RestServiceInfoPanel serviceInfoPanel, boolean isFatJar) {
         String service = serviceInfoPanel.getServiceName();
+        String port = serviceInfoPanel.getPort();
+        String fileExtension = serviceInfoPanel.getFileExtension();
         try {
             PROCESS_CACHE.computeIfPresent(service, (k, v) -> {
                 serviceInfoPanel.getLogJTextArea().append("Found existing process. PID =" + v.pid() + " This process will be terminated!\n");
@@ -40,11 +40,11 @@ public class JavaProcessHandler {
             var deployFolderPath = MasterConfigInfoPanel.getInstance().getDeployFolderJTextField().getText();
 
             ArrayList<String> commands = getExecutionCommonCommands(serviceInfoPanel);
-            if (isFatJar) {
-                commands.add("-Dserver.port=" + Utils.getPort(serviceInfoPanel));
+            if (!"none".equalsIgnoreCase(port)) {
+                commands.add("-Dserver.port=" + port);
             }
             commands.add("-jar");
-            commands.add((deployFolderPath + "/" + service) + (isFatJar ? "-fat.war" : ".jar"));
+            commands.add((deployFolderPath + "/" + service) + "." + fileExtension);
             commands.add(MasterConfigInfoPanel.getInstance().getProfileTextField().getText());
 
             serviceInfoPanel.getLogJTextArea().append(StringUtils.join(commands, " ") + "\n");
@@ -59,16 +59,11 @@ public class JavaProcessHandler {
             Process proc = processBuilder.start();
 
             serviceInfoPanel.getLogJTextArea().append("############" + serviceInfoPanel.getServiceName() + " [ process started Process Id - " + proc.pid() + "] ###############\n");
-            proc.waitFor(3, TimeUnit.SECONDS);
+            proc.waitFor(2, TimeUnit.SECONDS);
 
             if (proc.isAlive()) {
                 PROCESS_CACHE.put(service, proc);
-                if (isFatJar) {
-
-                    serviceInfoPanel.getStatusTextField().setText("Service started ## localhost:" + Utils.getPort(serviceInfoPanel) + "/" + service + " ##");
-                } else {
-                    serviceInfoPanel.getStatusTextField().setText("Service started ##" + service + " ##");
-                }
+                serviceInfoPanel.getStatusTextField().setText("Service started ## localhost:" + port + "/" + service + " ##");
             }
 
         } catch (Exception e) {
