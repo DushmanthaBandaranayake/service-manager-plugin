@@ -19,7 +19,7 @@ import static org.uob.pae.intellij.plugin.servicemanager.ui.Context.SERVICE_PANE
  */
 public class ReloadButtonActionListener implements ActionListener {
 
-    private MasterConfigInfoPanel masterConfigInfoPanel;
+    private final MasterConfigInfoPanel masterConfigInfoPanel;
 
     public ReloadButtonActionListener(MasterConfigInfoPanel masterConfigInfoPanel) {
 
@@ -29,9 +29,8 @@ public class ReloadButtonActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        DefaultListModel<InfoPanel> defaultListModel = (DefaultListModel<InfoPanel>) masterConfigInfoPanel.getMainPanel().getJListServices().getModel();
-
-        if (!checkIfAnyRunning(defaultListModel)) {
+        try {
+            DefaultListModel<InfoPanel> defaultListModel = (DefaultListModel<InfoPanel>) masterConfigInfoPanel.getMainPanel().getJListServices().getModel();
 
             List<InfoPanel> existingPanels = (List<InfoPanel>) Context.getValue(SERVICE_PANELS);
             List<InfoPanel> requestedPanels = Utils.createRestServicePanels();
@@ -42,16 +41,25 @@ public class ReloadButtonActionListener implements ActionListener {
             List<InfoPanel> removedPanels = new ArrayList<>(existingPanels);
             removedPanels.removeAll(requestedPanels);
 
+
+            for (InfoPanel infoPanel : removedPanels) {
+
+                if (infoPanel.isRunning()) {
+                    throw new RuntimeException("Cannot remove "+infoPanel.getServiceName() + ". service is still running. Please stop before reloading");
+                }
+                defaultListModel.removeElement(infoPanel);
+                existingPanels.remove(infoPanel);
+            }
+
             for (InfoPanel infoPanel : newPanels) {
                 defaultListModel.addElement(infoPanel);
                 existingPanels.add(infoPanel);
             }
+        } catch (RuntimeException ex) {
+            Utils.fireNotification(ex.getMessage(), NotificationType.ERROR);
 
-            for (InfoPanel infoPanel : removedPanels) {
-                defaultListModel.removeElement(infoPanel);
-                existingPanels.remove(infoPanel);
-            }
         }
+
     }
 
     private boolean checkIfAnyRunning(DefaultListModel<InfoPanel> defaultListModel) {

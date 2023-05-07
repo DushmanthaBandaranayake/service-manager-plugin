@@ -15,16 +15,16 @@ public class ServiceListMouseListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         var jSplitPane = mainPanel.getjSplitPane();
         InfoPanel selectedValue = mainPanel.getJListServices().getSelectedValue();
         if (selectedValue != null) {
             jSplitPane.setRightComponent(selectedValue.getContentPanel());
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
     }
 
     @Override

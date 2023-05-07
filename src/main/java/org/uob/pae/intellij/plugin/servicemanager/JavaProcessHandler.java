@@ -63,7 +63,7 @@ public class JavaProcessHandler {
 
             if (proc.isAlive()) {
                 PROCESS_CACHE.put(service, proc);
-                serviceInfoPanel.getStatusTextField().setText("Service started ## localhost:" + port + "/" + service + " ##");
+                serviceInfoPanel.getStatusTextField().setText("## localhost:" + port + "/" + service + " ##");
             }
 
         } catch (Exception e) {
