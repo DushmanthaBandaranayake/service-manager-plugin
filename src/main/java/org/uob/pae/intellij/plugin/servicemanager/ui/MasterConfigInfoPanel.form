@@ -122,7 +122,7 @@
             <constraints/>
             <properties>
               <lineWrap value="false"/>
-              <text value="pae-auth-rs=localhost:7001&#10;pae-rfs-rs=localhost:7002&#10;#pae-static-rs=localhost:7002"/>
+              <text value="pae-hazelcast.jar==localhost:non&#10;pae-auth-rs-fat.war=localhost:7001&#10;pae-rfs-rs-fat.war=localhost:7002&#10;#pae-static-rs-fat.war=localhost:7002"/>
               <wrapStyleWord value="false"/>
             </properties>
           </component>
