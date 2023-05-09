@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class Context {
 
     public static final String SERVICE_PANELS = "SERVICE_PANELS";
+    public static final String SERVICE_LIST_MODEL = "SERVICE_LIST_MODEL";
     public final static Map<String, Process> PROCESS_CACHE = new ConcurrentHashMap<>();
     private final static Map<String, Object> DATA = new ConcurrentHashMap<>();
     private Context(){}
