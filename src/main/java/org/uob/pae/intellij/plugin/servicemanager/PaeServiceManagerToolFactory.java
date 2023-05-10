@@ -9,6 +9,8 @@ import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 import org.uob.pae.intellij.plugin.servicemanager.ui.MainPanel;
 
+import javax.swing.*;
+
 /**
  * @author Dushmantha
  */
@@ -16,10 +18,12 @@ public class PaeServiceManagerToolFactory implements ToolWindowFactory, DumbAwar
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+        var mainPanel = new MainPanel();
         Content content = ContentFactory.SERVICE.getInstance().createContent(
-                new MainPanel().getMainPanel(),
+                mainPanel.getMainPanel(),
                 "Services Manager",
                 false);
+        content.setDisposer(mainPanel);
         toolWindow.getContentManager().addContent(content);
     }
 

@@ -1,9 +1,15 @@
 package org.uob.pae.intellij.plugin.servicemanager.ui;
 
 import com.intellij.notification.NotificationType;
+import com.intellij.openapi.Disposable;
+import com.intellij.openapi.ui.DialogWrapper;
+import org.jetbrains.annotations.Nullable;
+import org.uob.pae.intellij.plugin.servicemanager.JavaProcessHandler;
 import org.uob.pae.intellij.plugin.servicemanager.ui.listneners.ServiceListMouseListener;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.uob.pae.intellij.plugin.servicemanager.ui.Context.*;
@@ -12,7 +18,7 @@ import static org.uob.pae.intellij.plugin.servicemanager.ui.Utils.createRestServ
 /**
  * @author Dushmantha Bandaranayake
  */
-public class MainPanel {
+public class MainPanel implements Disposable {
 
     private JPanel mainPanel;
     private JList<InfoPanel> jListServices;
@@ -72,6 +78,22 @@ public class MainPanel {
 
     public JSplitPane getjSplitPane() {
         return jSplitPane;
+    }
+
+    /**
+     * Stop processes on IntelliJ close
+     */
+    @Override
+    public void dispose() {
+
+        for (int i = 0; i < jListServices.getModel().getSize(); i++) {
+            if (jListServices.getModel().getElementAt(i) instanceof RestServiceInfoPanel) {
+                if (jListServices.getModel().getElementAt(i).isRunning()) {
+                    JavaProcessHandler.stopProcess((RestServiceInfoPanel) jListServices.getModel().getElementAt(i));
+                }
+            }
+        }
+
     }
 
 }
